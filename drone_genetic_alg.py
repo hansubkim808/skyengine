@@ -8,6 +8,13 @@ def_p_swap = 0.6
 def_initParamMax = 1.0
 def_initParamMin = -1.0
 
+genCount = 0
+popSize = 0
+
+
+Running = False
+PopSorted = False
+
 class GeneticAlgorithm:
 # MUTATION OPERATORS 
     def mutateGenotype(self, genotype, p_mutation, mutationAmount):
@@ -71,6 +78,53 @@ class GeneticAlgorithm:
         for genotype in currentPop:
             genotype.Fitness = genotype.Performance / avg_performance
 
+    # Initialize population (list of genotypes)
+    def initializePopulation(self, pop):
+        for genotype in pop:
+            genotype.randomInitParams(def_initParamMin, def_initParamMax) 
+        
+        genCount = 1
+        PopSorted = True
+        Running = True
+    
+    # Initialize new algorithm instance 
+    def newGenAlg(self, popSize):
+        currentPop = [];
+        for i in range(len(popSize)):
+                genotype = Genotype()
+            currentPop.append(genotype)
+
+    def Start(self):
+        Running = True
+        initializePopulation(currentPop)
+        Evaluate(currentPop)
+    
+    def PostEval(self, currentPop):
+        calculateFitness(currentPop)
+
+        if PopSorted == False:
+            sortPopulation(currentPop)
+
+        if TerminationCriteria:
+            terminate(self)
+        
+        topCandidates = selectCandidates(currentPop)
+        newPop = recombination(topCandidates, popSize)
+        mutateGeneration(newPop)
+        currentPop = newPop
+        genCount += 1
+        Evaluate(currentPop)
+    
+    def Evaluate(self, currentPop):
+        return 
+    
+    def terminate(self):
+        Running = False
+
+
+
+    
+    
             
 
     
