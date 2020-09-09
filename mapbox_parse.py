@@ -26,5 +26,7 @@ def parse_coordinates(start, dest):
             'type': 'Point', 
             'coordinates': [destination_coords[0], destination_coords[1]]}}
     
-   response = service.directions([origin, destination], 'mapbox.walking')
+    response = service.directions([origin, destination], 'mapbox.cycling', steps=True, access_token=*)
+    coords_list = { locations: response['routes']['legs']['steps']['intersections']['location'] for location in locations }
+    for elem in response['routes']['legs']['steps']['intersections']
   
